@@ -5,7 +5,7 @@ import { CheckCircle, MapPin, Users, Clock } from "lucide-react";
 import type { ActivityLog } from "@shared/schema";
 
 export default function RecentActivity() {
-  const { data: activities = [], isLoading } = useQuery({
+  const { data: activities = [], isLoading } = useQuery<ActivityLog[]>({
     queryKey: ["/api/activity-logs"],
   });
 
@@ -39,7 +39,7 @@ export default function RecentActivity() {
     }
   };
 
-  const formatTimeAgo = (timestamp: string) => {
+  const formatTimeAgo = (timestamp: string | Date) => {
     const now = new Date();
     const time = new Date(timestamp);
     const diffInHours = Math.floor((now.getTime() - time.getTime()) / (1000 * 60 * 60));

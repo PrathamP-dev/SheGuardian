@@ -152,7 +152,7 @@ export default function Landing() {
         </Card>
 
         {/* CTA */}
-        <div className="text-center">
+        <div className="text-center space-y-4">
           <Button 
             size="lg" 
             className="w-full gradient-primary text-white font-semibold py-4"
@@ -161,6 +161,33 @@ export default function Landing() {
           >
             Get Started - Sign Up Free
           </Button>
+          
+          <div className="text-center">
+            <span className="text-xs text-muted-foreground">or</span>
+          </div>
+          
+          <Button 
+            variant="outline"
+            size="lg" 
+            className="w-full py-4"
+            onClick={async () => {
+              try {
+                const response = await fetch('/api/auth/guest-login', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' }
+                });
+                if (response.ok) {
+                  window.location.reload();
+                }
+              } catch (error) {
+                console.error('Guest login failed:', error);
+              }
+            }}
+            data-testid="button-guest-login"
+          >
+            Continue as Guest
+          </Button>
+          
           <p className="text-xs text-muted-foreground mt-3">
             Your safety matters. Join our community today.
           </p>

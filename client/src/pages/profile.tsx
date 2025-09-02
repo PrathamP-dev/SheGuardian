@@ -9,6 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import BottomNavigation from "@/components/bottom-navigation";
 import { ArrowLeft, Check, Shield, Users, HelpCircle, Lock, Headphones, Star } from "lucide-react";
+import type { User } from "@shared/schema";
 
 export default function Profile() {
   const { user, isAuthenticated, isLoading } = useAuth();
@@ -22,7 +23,7 @@ export default function Profile() {
     isVolunteer: false,
   });
 
-  const { data: userData } = useQuery({
+  const { data: userData } = useQuery<User>({
     queryKey: ["/api/auth/user"],
     enabled: isAuthenticated,
   });
@@ -110,7 +111,13 @@ export default function Profile() {
   };
 
   const handleLogout = () => {
-    window.location.href = "/api/logout";
+    if (user?.id === 'guest-user') {
+      // For guest users, just reload the page to return to landing
+      window.location.reload();
+    } else {
+      // For regular users, use the logout endpoint
+      window.location.href = "/api/logout";
+    }
   };
 
   if (isLoading) {

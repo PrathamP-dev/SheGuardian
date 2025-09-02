@@ -15,10 +15,65 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware
   await setupAuth(app);
 
+  // Guest login route (temporary bypass)
+  app.post('/api/auth/guest-login', async (req, res) => {
+    try {
+      // Create a mock session for guest
+      const guestUser = {
+        claims: { sub: 'guest-user' },
+        access_token: 'guest-token',
+        expires_at: Math.floor(Date.now() / 1000) + 3600, // 1 hour
+      };
+
+      // Use passport's login method to establish session
+      req.login(guestUser, (err) => {
+        if (err) {
+          return res.status(500).json({ message: "Failed to create guest session" });
+        }
+        res.json({ message: "Guest login successful" });
+      });
+    } catch (error) {
+      console.error("Error creating guest session:", error);
+      res.status(500).json({ message: "Failed to create guest session" });
+    }
+  });
+
+  // Guest logout route
+  app.post('/api/auth/guest-logout', (req, res) => {
+    req.logout((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Failed to logout" });
+      }
+      res.json({ message: "Guest logout successful" });
+    });
+  });
+
   // Auth routes
   app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
+      
+      // Handle guest user
+      if (userId === 'guest-user') {
+        const guestUser = {
+          id: 'guest-user',
+          email: 'guest@sheguardian.com',
+          firstName: 'Guest',
+          lastName: 'User',
+          profileImageUrl: null,
+          isVolunteer: false,
+          volunteerRadius: 500,
+          volunteerRating: "0.00",
+          totalResponses: 0,
+          shakeToAlert: true,
+          silentMode: false,
+          autoRecord: true,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+        return res.json(guestUser);
+      }
+      
       const user = await storage.getUser(userId);
       res.json(user);
     } catch (error) {
@@ -31,6 +86,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/trusted-contacts', isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
+      
+      // Return empty array for guest users
+      if (userId === 'guest-user') {
+        return res.json([]);
+      }
+      
       const contacts = await storage.getTrustedContacts(userId);
       res.json(contacts);
     } catch (error) {
@@ -358,6 +419,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const userId = req.user.claims.sub;
       const limit = parseInt(req.query.limit as string) || 10;
+      
+      // Return sample data for guest users
+      if (userId === 'guest-user') {
+        const sampleLogs = [
+          {
+            id: '1',
+            userId: 'guest-user',
+            actionType: 'account_created',
+            title: 'Welcome to SheGuardian',
+            description: 'Guest account created successfully',
+            metadata: null,
+            createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+          },
+          {
+            id: '2', 
+            userId: 'guest-user',
+            actionType: 'safety_check',
+            title: 'Safety features enabled',
+            description: 'All safety features are now active',
+            metadata: null,
+            createdAt: new Date(Date.now() - 1 * 60 * 60 * 1000), // 1 hour ago
+          }
+        ];
+        return res.json(sampleLogs);
+      }
+      
       const logs = await storage.getUserActivityLogs(userId, limit);
       res.json(logs);
     } catch (error) {

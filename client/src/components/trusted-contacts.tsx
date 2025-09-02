@@ -24,7 +24,7 @@ export default function TrustedContacts() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data: contacts = [], isLoading } = useQuery({
+  const { data: contacts = [], isLoading } = useQuery<TrustedContact[]>({
     queryKey: ["/api/trusted-contacts"],
   });
 

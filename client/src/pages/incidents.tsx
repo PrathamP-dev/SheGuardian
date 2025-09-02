@@ -4,8 +4,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import BottomNavigation from "@/components/bottom-navigation";
-import { ArrowLeft, AlertTriangle, MapPin, Clock, Users, TrendingUp } from "lucide-react";
+import { ArrowLeft, AlertTriangle, MapPin, Clock, Users, TrendingUp, Plus } from "lucide-react";
 import type { IncidentReport } from "@shared/schema";
 
 export default function Incidents() {
@@ -27,7 +28,7 @@ export default function Incidents() {
     }
   }, [isAuthenticated, isLoading, toast]);
 
-  const { data: publicIncidents = [], isLoading: isLoadingIncidents } = useQuery({
+  const { data: publicIncidents = [], isLoading: isLoadingIncidents } = useQuery<IncidentReport[]>({
     queryKey: ["/api/public-incidents"],
     enabled: isAuthenticated,
   });
@@ -60,7 +61,7 @@ export default function Incidents() {
     }
   };
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string | Date) => {
     const date = new Date(dateString);
     const now = new Date();
     const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));

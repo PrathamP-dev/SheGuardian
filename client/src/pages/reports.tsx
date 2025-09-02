@@ -30,7 +30,7 @@ export default function Reports() {
     }
   }, [isAuthenticated, isLoading, toast]);
 
-  const { data: reports = [], isLoading: isLoadingReports } = useQuery({
+  const { data: reports = [], isLoading: isLoadingReports } = useQuery<IncidentReport[]>({
     queryKey: ["/api/incident-reports"],
     enabled: isAuthenticated,
   });
@@ -63,7 +63,7 @@ export default function Reports() {
     }
   };
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string | Date) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
       month: 'short',
