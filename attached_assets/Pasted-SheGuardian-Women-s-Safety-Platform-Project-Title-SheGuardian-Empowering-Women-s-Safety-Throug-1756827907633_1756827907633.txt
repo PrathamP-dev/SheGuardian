@@ -1,0 +1,163 @@
+SheGuardian – Women’s Safety Platform
+
+Project Title:
+SheGuardian – Empowering Women’s Safety Through Real-Time Action and Community Involvement
+
+🧩 Goal & Description:
+
+Create a responsive and secure web app named SheGuardian that prioritizes real-time safety for women through an SOS system, nearby volunteer response, location tracking, known contact alerts, authority notifications, and community support integration. The app should be built in a way that conveys completeness from MVP stage—focusing on usability, quick action, and trust-building.
+
+🎯 Key Features to Implement:
+🏠 Home Page (Dashboard)
+
+SOS Button (Primary CTA):
+
+Prominent red circular button in the center of the screen.
+
+When pressed:
+
+Shares current geolocation with:
+
+Emergency services (Police, Fire Department)
+
+Pre-listed known contacts
+
+Nearby registered volunteers (within 500m radius)
+
+Begins auto-capture of audio and photo (if permitted).
+
+Timer shows countdown until help is estimated to arrive.
+
+👥 Known Contacts Section (Trusted Circle)
+
+User can add, remove, and update known/loved contacts (max 5).
+
+These contacts are automatically notified with:
+
+Real-time location link
+
+Alert message: “Your contact [Name] has triggered an emergency SOS via SheGuardian. Here is their live location.”
+
+Option to call back or respond with message
+
+🚨 Authority Notification Panel
+
+Connects directly with:
+
+Local police stations
+
+Fire Department (optional toggle)
+
+National women’s helplines
+
+Send real-time reports with:
+
+Victim’s name, phone, last known location
+
+Alert type: (Harassment / Assault / Lost / Panic)
+
+Timestamp of SOS trigger
+
+🌍 Live Location Tracker
+
+A map view showing:
+
+Victim’s current location
+
+Responding volunteers (icons with distance/time)
+
+Highlighted safe zones or help centers nearby
+
+Uses Google Maps or Mapbox integration
+
+🤝 Volunteer Dashboard (For Registered Helpers)
+
+Volunteers can:
+
+View active nearby alerts
+
+Accept an alert (first-come-first-serve model)
+
+Get navigation to the person in distress
+
+Receive reward points for verified response (used for govt incentives)
+
+📖 Incident Reporting Section
+
+Allows the user to:
+
+Log unsafe experiences or locations
+
+Optionally mark it public for others to see as alerts
+
+Add description, image, and tags (harassment, theft, stalking, etc.)
+
+🧠 Support Services Panel
+
+Quick connection to:
+
+NGOs, therapists, and counselors
+
+Anonymous chat options
+
+Country-specific helpline access (from the 20+ countries database)
+
+🧑‍💼 Profile & Settings
+
+Register as:
+
+Victim/User
+
+Volunteer
+
+Set preferences:
+
+Emergency contacts
+
+Alert sound/vibration options
+
+Auto-alert on shake (optional)
+
+🔒 Security & Privacy Measures:
+
+Use Firebase Auth (or Auth0) for user authentication
+
+All location data is time-limited and stored with TTL (time-to-live)
+
+Users can delete incident logs and revoke tracking access anytime
+
+Volunteers sign a code of conduct agreement before activation
+
+💡 Bonus (Optional) Features for MVP Polishing:
+
+Fake Call Generator: Customizable incoming call simulation
+
+Voice-Activated SOS: “Help Me” command for triggering SOS without screen interaction
+
+Offline Mode: In poor connectivity, auto-send compact SOS with map link via SMS
+
+🛠 Tech Stack Suggestions (Frontend + Backend)
+
+Frontend: React.js / Next.js / Vue.js (for modern UI)
+
+Backend: Node.js with Express OR Firebase Functions
+
+Database: Firebase Firestore / MongoDB Atlas (with TTL support)
+
+Map & Geolocation: Google Maps API / Mapbox / Geolocation API
+
+Notifications: Firebase Cloud Messaging (FCM) + Twilio (for SMS fallback)
+
+Authentication: Firebase Auth / Auth0
+
+✅ MVP Completion Criteria:
+
+All major components (SOS, Contacts, Authority Alerts, Volunteer Response) functional
+
+Seamless UI experience on mobile and desktop browsers
+
+Demo ready with test cases for triggering and resolving an SOS
+
+Minimal bug reports from initial pilot run
+
+Incident and user logs exportable for admin/legal review
