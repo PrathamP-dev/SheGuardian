@@ -1,12 +1,19 @@
+import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, MapPin, Share, Headphones } from "lucide-react";
+import FakeCallModal from "./fake-call-modal";
+import SafePlacesModal from "./safe-places-modal";
+import AnonymousChatModal from "./anonymous-chat-modal";
 
 export default function QuickActions() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const [isFakeCallOpen, setIsFakeCallOpen] = useState(false);
+  const [isSafePlacesOpen, setIsSafePlacesOpen] = useState(false);
+  const [isSupportChatOpen, setIsSupportChatOpen] = useState(false);
 
   const shareLocationMutation = useMutation({
     mutationFn: async () => {
@@ -41,46 +48,19 @@ export default function QuickActions() {
   });
 
   const handleFakeCall = () => {
-    // Simulate incoming call interface
-    toast({
-      title: "Fake Call Activated",
-      description: "Incoming call simulation started. Perfect for getting out of uncomfortable situations.",
-    });
-    
-    // In a real implementation, this would:
-    // - Show a realistic incoming call interface
-    // - Play ringtone sounds
-    // - Allow answering/declining the fake call
-    // - Have customizable caller information
+    setIsFakeCallOpen(true);
   };
 
   const handleFindSafePlaces = () => {
-    toast({
-      title: "Safe Places Nearby",
-      description: "Showing nearby police stations, hospitals, and safe zones on map.",
-    });
-    
-    // In a real implementation, this would:
-    // - Open the map component
-    // - Highlight nearby safe locations
-    // - Provide directions to the nearest safe place
-    // - Show operating hours and contact information
+    setIsSafePlacesOpen(true);
   };
 
   const handleOpenSupport = () => {
-    toast({
-      title: "Support Services",
-      description: "Connecting you to 24/7 support and counseling services.",
-    });
-    
-    // In a real implementation, this would:
-    // - Open a support chat interface
-    // - Connect to counselors or helplines
-    // - Provide crisis support resources
-    // - Offer anonymous support options
+    setIsSupportChatOpen(true);
   };
 
   return (
+    <>
     <Card data-testid="quick-actions-section">
       <CardContent className="p-4">
         <h3 className="font-medium mb-4">Quick Actions</h3>
@@ -124,5 +104,27 @@ export default function QuickActions() {
         </div>
       </CardContent>
     </Card>
+    
+    {isFakeCallOpen && (
+      <FakeCallModal 
+        isOpen={isFakeCallOpen} 
+        onClose={() => setIsFakeCallOpen(false)} 
+      />
+    )}
+    
+    {isSafePlacesOpen && (
+      <SafePlacesModal 
+        isOpen={isSafePlacesOpen} 
+        onClose={() => setIsSafePlacesOpen(false)} 
+      />
+    )}
+    
+    {isSupportChatOpen && (
+      <AnonymousChatModal 
+        isOpen={isSupportChatOpen} 
+        onClose={() => setIsSupportChatOpen(false)} 
+      />
+    )}
+    </>
   );
 }

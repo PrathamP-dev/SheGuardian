@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, Shield, MessageCircle } from "lucide-react";
+import AnonymousChatModal from "./anonymous-chat-modal";
 
 export default function EmergencyServices() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
   const handleCallEmergency = () => {
     // India's National Emergency Number
     // 112 - Unified emergency number for police, fire, medical
@@ -17,14 +21,11 @@ export default function EmergencyServices() {
   };
 
   const handleAnonymousChat = () => {
-    // In a real implementation, this would:
-    // - Open chat interface with trained counselors
-    // - Provide anonymous crisis support
-    // - Connect to mental health resources
-    alert("Opening Anonymous Chat...\n\nThis would connect you with trained counselors for immediate support.");
+    setIsChatOpen(true);
   };
 
   return (
+    <>
     <Card data-testid="emergency-services-section">
       <CardContent className="p-4">
         <h3 className="font-medium mb-4">Emergency Services</h3>
@@ -127,5 +128,13 @@ export default function EmergencyServices() {
         </div>
       </CardContent>
     </Card>
+    
+    {isChatOpen && (
+      <AnonymousChatModal 
+        isOpen={isChatOpen} 
+        onClose={() => setIsChatOpen(false)} 
+      />
+    )}
+    </>
   );
 }

@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import BottomNavigation from "@/components/bottom-navigation";
+import AnonymousChatModal from "@/components/anonymous-chat-modal";
 import { 
   ArrowLeft, 
   Phone, 
@@ -20,6 +21,7 @@ import {
 export default function Support() {
   const { isAuthenticated, isLoading } = useAuth();
   const { toast } = useToast();
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -37,43 +39,31 @@ export default function Support() {
   }, [isAuthenticated, isLoading, toast]);
 
   const handleEmergencyCall = () => {
-    window.location.href = "tel:911";
+    window.location.href = "tel:112";
   };
 
   const handleWomensHelpline = () => {
-    // In production, this would use the appropriate national helpline number
-    toast({
-      title: "Connecting to Women's Helpline",
-      description: "Connecting you to 24/7 crisis support and counseling services.",
-    });
+    // Call India's Women's Helpline
+    window.location.href = "tel:181";
   };
 
   const handleAnonymousChat = () => {
-    toast({
-      title: "Anonymous Chat Available",
-      description: "Opening secure chat with trained counselors. Your privacy is protected.",
-    });
+    setIsChatOpen(true);
   };
 
   const handleCrisisResources = () => {
-    toast({
-      title: "Crisis Resources",
-      description: "Accessing comprehensive crisis support and mental health resources.",
-    });
+    // Navigate to crisis resources page (could be external link)
+    window.open('https://www.nimhans.ac.in/services/department/psychiatry', '_blank');
   };
 
   const handleLegalAid = () => {
-    toast({
-      title: "Legal Aid Services",
-      description: "Connecting you with legal support and advocacy services.",
-    });
+    // Navigate to legal aid services
+    window.open('https://nalsa.gov.in/', '_blank');
   };
 
   const handleSafetyGuide = () => {
-    toast({
-      title: "Safety Guide",
-      description: "Opening comprehensive personal safety and emergency preparedness guide.",
-    });
+    // Navigate to safety guide - could be internal page or external resource
+    window.open('https://www.ncrb.gov.in/uploads/nationalcrimerecordsbureau/custom/1634724692Public%20Safety%20Awareness%20-NCRB.pdf', '_blank');
   };
 
   if (isLoading) {
@@ -127,7 +117,7 @@ export default function Support() {
                 data-testid="button-crisis-emergency"
               >
                 <Phone className="h-4 w-4 mr-2" />
-                Emergency Services (911)
+                Emergency Services (112)
               </Button>
               
               <Button 
@@ -430,6 +420,11 @@ export default function Support() {
       </div>
 
       <BottomNavigation />
+      
+      <AnonymousChatModal 
+        isOpen={isChatOpen} 
+        onClose={() => setIsChatOpen(false)} 
+      />
     </div>
   );
 }
