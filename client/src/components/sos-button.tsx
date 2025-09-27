@@ -106,14 +106,16 @@ export default function SOSButton() {
           </div>
         ) : triggerSOSMutation.isPending ? (
           <div className="text-center">
-            <div className="animate-spin mb-2">
+            <div className="animate-spin mb-2 flex justify-center">
               <AlertTriangle className="h-8 w-8" />
             </div>
             <div className="text-sm">Sending Alert...</div>
           </div>
         ) : (
           <div className="text-center">
-            <AlertTriangle className="h-8 w-8 mb-2" />
+            <div className="flex justify-center mb-2">
+              <AlertTriangle className="h-8 w-8" />
+            </div>
             <div className="text-lg font-bold">SOS</div>
             <div className="text-sm opacity-90">EMERGENCY</div>
           </div>

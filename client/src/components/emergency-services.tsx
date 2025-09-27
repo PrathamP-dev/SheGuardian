@@ -3,19 +3,17 @@ import { Phone, Shield, MessageCircle } from "lucide-react";
 
 export default function EmergencyServices() {
   const handleCallEmergency = () => {
-    // In a real implementation, this would:
-    // - Detect user's location and country
-    // - Call the appropriate emergency number (911, 100, 112, etc.)
-    // - Log the call in activity history
-    window.location.href = "tel:911";
+    // India's National Emergency Number
+    // 112 - Unified emergency number for police, fire, medical
+    // Also redirects to appropriate services based on need
+    window.location.href = "tel:112";
   };
 
   const handleCallWomensHelpline = () => {
-    // In a real implementation, this would:
-    // - Connect to national women's helpline
-    // - Provide 24/7 crisis support
-    // - Offer anonymous support options
-    alert("Connecting to Women's Helpline...\n\nThis would dial the national women's crisis support number based on your location.");
+    // India's Women's Helpline - 181
+    // 24/7 support for women in distress
+    // Alternative: 1091 (another women's helpline)
+    window.location.href = "tel:181";
   };
 
   const handleAnonymousChat = () => {
@@ -43,7 +41,7 @@ export default function EmergencyServices() {
               </div>
               <div className="text-left">
                 <p className="font-medium text-sm text-red-800">Emergency Hotline</p>
-                <p className="text-xs text-red-600">911 / Local Emergency Services</p>
+                <p className="text-xs text-red-600">112 - National Emergency Number</p>
               </div>
             </div>
             <svg className="h-4 w-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -62,10 +60,48 @@ export default function EmergencyServices() {
               </div>
               <div className="text-left">
                 <p className="font-medium text-sm text-blue-800">Women's Helpline</p>
-                <p className="text-xs text-blue-600">24/7 Support Available</p>
+                <p className="text-xs text-blue-600">181 - 24/7 Support Available</p>
               </div>
             </div>
             <svg className="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          <button 
+            className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 transition-colors emergency-service-btn"
+            onClick={() => window.location.href = "tel:102"}
+            data-testid="button-medical-emergency"
+          >
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
+                <Phone className="h-5 w-5 text-white" />
+              </div>
+              <div className="text-left">
+                <p className="font-medium text-sm text-green-800">Medical Emergency</p>
+                <p className="text-xs text-green-600">102 - Ambulance Services</p>
+              </div>
+            </div>
+            <svg className="h-4 w-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          <button 
+            className="flex items-center justify-between p-3 bg-orange-50 border border-orange-200 rounded-lg hover:bg-orange-100 transition-colors emergency-service-btn"
+            onClick={() => window.location.href = "tel:100"}
+            data-testid="button-police-emergency"
+          >
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center">
+                <Shield className="h-5 w-5 text-white" />
+              </div>
+              <div className="text-left">
+                <p className="font-medium text-sm text-orange-800">Police Emergency</p>
+                <p className="text-xs text-orange-600">100 - Police Services</p>
+              </div>
+            </div>
+            <svg className="h-4 w-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
